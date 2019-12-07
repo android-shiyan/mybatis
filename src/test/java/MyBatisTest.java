@@ -1,4 +1,5 @@
 import com.shiyan.dao.IUserDao;
+import com.shiyan.domain.QueryVo;
 import com.shiyan.domain.User;
 import org.apache.ibatis.io.Resources;
 import org.apache.ibatis.session.SqlSession;
@@ -49,7 +50,7 @@ public class MyBatisTest {
     }
 
     @Test
-    public void testSaveUser(){
+    public void testSaveUser() {
         User user = new User();
         user.setUsername("石岩");
         user.setAddress("北京市丰台区");
@@ -57,10 +58,12 @@ public class MyBatisTest {
         user.setBirthday(new Date());
 
         userDao.saveUser(user);
+
+        System.out.println("保存之后:" + user);
     }
 
     @Test
-    public void testUpdateUser(){
+    public void testUpdateUser() {
         User user = new User();
         user.setId(49);
         user.setUsername("吴松");
@@ -72,7 +75,40 @@ public class MyBatisTest {
     }
 
     @Test
-    public void deleteUser(){
+    public void testDeleteUser() {
         userDao.deleteUser(48);
+    }
+
+    @Test
+    public void testFindById() {
+        User user = userDao.findById(49);
+        System.out.println(user);
+    }
+
+    @Test
+    public void testFindByName() {
+        List<User> list = userDao.findByName("%王%");
+        for (User user : list) {
+            System.out.println(user);
+        }
+    }
+
+    @Test
+    public void testFindTotal(){
+        int count = userDao.findTotal();
+        System.out.println(count);
+    }
+
+    @Test
+    public void testFindUserByVo(){
+        QueryVo vo = new QueryVo();
+        User user = new User();
+        user.setUsername("%王%");
+        vo.setUser(user);
+
+        List<User> list = userDao.findUserByVo(vo);
+        for(User p_user:list){
+            System.out.println(p_user);
+        }
     }
 }
