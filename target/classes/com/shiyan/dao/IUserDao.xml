@@ -6,4 +6,16 @@
     <select id="findAll" resultType="com.shiyan.domain.User">
         select * from user
     </select>
+
+    <insert id="saveUser" parameterType="com.shiyan.domain.User">
+        insert into user(username,address,sex,birthday)values(#{username},#{address},#{sex},#{birthday})
+    </insert>
+
+    <update id="updateUser" parameterType="com.shiyan.domain.User">
+        update user set username=#{username},address=#{address},sex=#{sex},birthday=#{birthday} where id=#{id}
+    </update>
+
+    <delete id="deleteUser" parameterType="java.lang.Integer">
+        delete from user where id=#{uid}
+    </delete>
 </mapper>
