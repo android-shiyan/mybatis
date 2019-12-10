@@ -10,6 +10,7 @@ import org.junit.Before;
 import org.junit.Test;
 
 import java.io.InputStream;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -94,21 +95,48 @@ public class MyBatisTest {
     }
 
     @Test
-    public void testFindTotal(){
+    public void testFindTotal() {
         int count = userDao.findTotal();
         System.out.println(count);
     }
 
     @Test
-    public void testFindUserByVo(){
+    public void testFindUserByVo() {
         QueryVo vo = new QueryVo();
         User user = new User();
         user.setUsername("%王%");
         vo.setUser(user);
 
         List<User> list = userDao.findUserByVo(vo);
-        for(User p_user:list){
+        for (User p_user : list) {
             System.out.println(p_user);
+        }
+    }
+
+    @Test
+    public void testFindByUser() {
+        User user = new User();
+        user.setUsername("老王");
+        user.setSex("女");
+
+        List<User> users = userDao.findByUser(user);
+        for (User p_user : users) {
+            System.out.println(p_user);
+        }
+    }
+
+    @Test
+    public void testFindInIds() {
+        List<Integer> ids = new ArrayList<Integer>();
+        ids.add(46);
+        ids.add(49);
+        ids.add(50);
+        QueryVo queryVo = new QueryVo();
+        queryVo.setIds(ids);
+
+        List<User> users = userDao.findInIds(queryVo);
+        for (User user : users) {
+            System.out.println(user);
         }
     }
 }
