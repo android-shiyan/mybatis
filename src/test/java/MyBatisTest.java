@@ -1,5 +1,4 @@
 import com.shiyan.dao.IUserDao;
-import com.shiyan.domain.QueryVo;
 import com.shiyan.domain.User;
 import org.apache.ibatis.io.Resources;
 import org.apache.ibatis.session.SqlSession;
@@ -47,96 +46,7 @@ public class MyBatisTest {
         List<User> users = userDao.findAll();
         for (User user : users) {
             System.out.println(user);
-        }
-    }
-
-    @Test
-    public void testSaveUser() {
-        User user = new User();
-        user.setUsername("石岩");
-        user.setAddress("北京市丰台区");
-        user.setSex("男");
-        user.setBirthday(new Date());
-
-        userDao.saveUser(user);
-
-        System.out.println("保存之后:" + user);
-    }
-
-    @Test
-    public void testUpdateUser() {
-        User user = new User();
-        user.setId(49);
-        user.setUsername("吴松");
-        user.setAddress("北京");
-        user.setSex("男");
-        user.setBirthday(new Date());
-
-        userDao.updateUser(user);
-    }
-
-    @Test
-    public void testDeleteUser() {
-        userDao.deleteUser(48);
-    }
-
-    @Test
-    public void testFindById() {
-        User user = userDao.findById(49);
-        System.out.println(user);
-    }
-
-    @Test
-    public void testFindByName() {
-        List<User> list = userDao.findByName("%王%");
-        for (User user : list) {
-            System.out.println(user);
-        }
-    }
-
-    @Test
-    public void testFindTotal() {
-        int count = userDao.findTotal();
-        System.out.println(count);
-    }
-
-    @Test
-    public void testFindUserByVo() {
-        QueryVo vo = new QueryVo();
-        User user = new User();
-        user.setUsername("%王%");
-        vo.setUser(user);
-
-        List<User> list = userDao.findUserByVo(vo);
-        for (User p_user : list) {
-            System.out.println(p_user);
-        }
-    }
-
-    @Test
-    public void testFindByUser() {
-        User user = new User();
-        user.setUsername("老王");
-        user.setSex("女");
-
-        List<User> users = userDao.findByUser(user);
-        for (User p_user : users) {
-            System.out.println(p_user);
-        }
-    }
-
-    @Test
-    public void testFindInIds() {
-        List<Integer> ids = new ArrayList<Integer>();
-        ids.add(46);
-        ids.add(49);
-        ids.add(50);
-        QueryVo queryVo = new QueryVo();
-        queryVo.setIds(ids);
-
-        List<User> users = userDao.findInIds(queryVo);
-        for (User user : users) {
-            System.out.println(user);
+            System.out.println(user.getAccounts());
         }
     }
 }
