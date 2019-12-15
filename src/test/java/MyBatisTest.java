@@ -1,6 +1,5 @@
 import com.shiyan.dao.IAccountDao;
 import com.shiyan.domain.Account;
-import com.shiyan.domain.User;
 import org.apache.ibatis.io.Resources;
 import org.apache.ibatis.session.SqlSession;
 import org.apache.ibatis.session.SqlSessionFactory;
@@ -10,8 +9,6 @@ import org.junit.Before;
 import org.junit.Test;
 
 import java.io.InputStream;
-import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 public class MyBatisTest {
@@ -50,5 +47,4 @@ public class MyBatisTest {
             System.out.println(account.getUser());
         }
     }
-
 }
