@@ -1,5 +1,5 @@
-import com.shiyan.dao.IUserDao;
-import com.shiyan.domain.QueryVo;
+import com.shiyan.dao.IAccountDao;
+import com.shiyan.domain.Account;
 import com.shiyan.domain.User;
 import org.apache.ibatis.io.Resources;
 import org.apache.ibatis.session.SqlSession;
@@ -18,7 +18,7 @@ public class MyBatisTest {
 
     private InputStream in;
     private SqlSession sqlSession;
-    private IUserDao userDao;
+    private IAccountDao accountDao;
 
     @Before
     public void init() throws Exception {
@@ -30,7 +30,7 @@ public class MyBatisTest {
         //3.使用工厂生产SqlSession对象
         sqlSession = factory.openSession();
         //4.使用SqlSession创建Dao接口的代理对象
-        userDao = sqlSession.getMapper(IUserDao.class);
+        accountDao = sqlSession.getMapper(IAccountDao.class);
     }
 
     @After
@@ -43,100 +43,12 @@ public class MyBatisTest {
 
     @Test
     public void testFindAll() {
-        //5.使用代理对象执行方法
-        List<User> users = userDao.findAll();
-        for (User user : users) {
-            System.out.println(user);
+        List<Account> accounts = accountDao.findAll();
+
+        for (Account account : accounts) {
+            System.out.println(account);
+            System.out.println(account.getUser());
         }
     }
 
-    @Test
-    public void testSaveUser() {
-        User user = new User();
-        user.setUsername("石岩");
-        user.setAddress("北京市丰台区");
-        user.setSex("男");
-        user.setBirthday(new Date());
-
-        userDao.saveUser(user);
-
-        System.out.println("保存之后:" + user);
-    }
-
-    @Test
-    public void testUpdateUser() {
-        User user = new User();
-        user.setId(49);
-        user.setUsername("吴松");
-        user.setAddress("北京");
-        user.setSex("男");
-        user.setBirthday(new Date());
-
-        userDao.updateUser(user);
-    }
-
-    @Test
-    public void testDeleteUser() {
-        userDao.deleteUser(48);
-    }
-
-    @Test
-    public void testFindById() {
-        User user = userDao.findById(49);
-        System.out.println(user);
-    }
-
-    @Test
-    public void testFindByName() {
-        List<User> list = userDao.findByName("%王%");
-        for (User user : list) {
-            System.out.println(user);
-        }
-    }
-
-    @Test
-    public void testFindTotal() {
-        int count = userDao.findTotal();
-        System.out.println(count);
-    }
-
-    @Test
-    public void testFindUserByVo() {
-        QueryVo vo = new QueryVo();
-        User user = new User();
-        user.setUsername("%王%");
-        vo.setUser(user);
-
-        List<User> list = userDao.findUserByVo(vo);
-        for (User p_user : list) {
-            System.out.println(p_user);
-        }
-    }
-
-    @Test
-    public void testFindByUser() {
-        User user = new User();
-        user.setUsername("老王");
-        user.setSex("女");
-
-        List<User> users = userDao.findByUser(user);
-        for (User p_user : users) {
-            System.out.println(p_user);
-        }
-    }
-
-    @Test
-    public void testFindInIds() {
-        List<Integer> ids = new ArrayList<Integer>();
-        ids.add(46);
-        ids.add(49);
-        ids.add(50);
-        QueryVo queryVo = new QueryVo();
-        queryVo.setIds(ids);
-
-        List<User> users = userDao.findInIds(queryVo);
-        for (User user : users) {
-            System.out.println(user);
-        }
-    }
 }

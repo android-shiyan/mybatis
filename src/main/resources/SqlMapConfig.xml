@@ -5,6 +5,10 @@
 <!--mybatis的主配置文件-->
 <configuration>
     <properties resource="jdbcConfig.properties"></properties>
+    <typeAliases>
+        <typeAlias type="com.shiyan.domain.Account" alias="account"></typeAlias>
+        <typeAlias type="com.shiyan.domain.User" alias="user"></typeAlias>
+    </typeAliases>
     <!-- 配置环境 -->
     <environments default="mysql">
         <!-- 配置mysql环境 -->
@@ -21,6 +25,6 @@
     </environments>
 
     <mappers>
-        <mapper resource="com/shiyan/dao/IUserDao.xml"/>
+        <mapper resource="com/shiyan/dao/IAccountDao.xml"/>
     </mappers>
 </configuration>
